@@ -5,3 +5,4 @@ from sklearn.linear_model import LinearRegression
 
 df = pd.read_csv("CSV Files/Video Games Data.csv")
 st.write(df)
+st.write("Video Game Dataset")
