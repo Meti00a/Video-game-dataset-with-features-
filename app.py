@@ -48,3 +48,17 @@ if search:
   plt.title("Total Sales by Genre")
   
   st.pyplot(plt)
+  
+  st.header("Sales by Console")
+  
+  console_sales = df.groupby("console")["total_sales"].sum().sort_values(ascending=False).head(10)
+  
+  plt.figure(figsize=(10, 5))
+  plt.bar(console_sales.index, console_sales.values)
+  plt.xticks(rotation=45, ha="right")
+  plt.xlabel("Console")
+  plt.ylabel("Total Sales")
+  plt.title("Total Sales by Console")
+  
+  st.pyplot(plt)
+  
