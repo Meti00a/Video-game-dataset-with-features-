@@ -77,3 +77,16 @@ if search:
   plt.title("Total Sales by Region")
   
   st.pyplot(plt)
+  
+  st.header("games by release year")
+  df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
+  
+  release_year =df["release_date"].dt.year.value_counts().sort_index()
+  
+  plt.figure(figsize=(10, 5))
+  plt.plot(release_year.index, release_year.values)
+  plt.xlabel("release year")
+  plt.ylabel("Number of games")
+  plt.title("games released by year")
+  
+  st.pyplot(plt)
