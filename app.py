@@ -19,3 +19,11 @@ plt.ylabel("Total Sales")
 plt.title("Top 10 Best Selling Games")
 
 st.pyplot(plt)
+
+st.header ("Search for a game")
+
+search =st.text_input("Enter game title")
+
+if search:
+  result = df[df["title"].str.contains(search, case=False, na=False)]
+  st.dataframe(result)
