@@ -27,3 +27,11 @@ search =st.text_input("Enter game title")
 if search:
   result = df[df["title"].str.contains(search, case=False, na=False)]
   st.dataframe(result)
+  
+  st.header("Filter by Critic Score")
+  
+  score =st.slider("Minimum critic score", 0.0, 10.0, 7.0)
+
+  filtered_games = df[df["critic_score"] >= score]
+  
+  st.dataframe(filtered_games)
