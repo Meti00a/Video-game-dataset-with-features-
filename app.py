@@ -62,3 +62,18 @@ if search:
   
   st.pyplot(plt)
   
+  st.header("Sales by Region")
+  region_sales = {
+    "North America": df["na_sales"].sum(),
+    "Japan": df["jp_sales"].sum(),
+    "Europe": df["pal_sales"].sum(),
+    "Other": df["other_sales"].sum()
+  }
+
+  plt.figure(figsize=(10, 5))
+  plt.bar(region_sales.keys(), region_sales.values())
+  plt.xlabel("Region")
+  plt.ylabel("Total Sales")
+  plt.title("Total Sales by Region")
+  
+  st.pyplot(plt)
