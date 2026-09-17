@@ -35,3 +35,16 @@ if search:
   filtered_games = df[df["critic_score"] >= score]
   
   st.dataframe(filtered_games)
+  
+  st.header("Sales by Genre")
+  
+  genre_sales = df.groupby("genre") ["total_sales"].sum()
+  
+  plt.figure(figsize=(10, 5))
+  plt.bar(genre_sales.index, genre_sales.values)
+  plt.xticks(rotation=45, ha="right")
+  plt.xlabel("Genre")
+  plt.ylabel("Total Sales")
+  plt.title("Total Sales by Genre")
+  
+  st.pyplot(plt)
