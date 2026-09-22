@@ -2,8 +2,16 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
+from sqlalchemy import create_engine
+import joblib
 
-df = pd.read_csv("CSV Files/Video Games Data.csv")
+engine = create_engine("sqlite:///games.db")
+
+@st.cache_data
+def load_data():
+    return pd.read_sql("SELECT * FROM games", engine)
+
+df = load_data()
 st.write(df)
 st.write("Video Game Dataset")
 
