@@ -1,0 +1,38 @@
+# Virtuell miljö (Python venv / conda)
+venv/
+.venv/
+env/
+ENV/
+bin/
+lib/
+
+# Python caching och kompilering
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Databaser (spara inte lokal SQLite-databas i Git om den genereras av skript)
+*.db
+*.sqlite
+*.sqlite3
+
+# Stora AI/ML-modellfiler (kan skapas igen via träningsskript)
+*.pkl
+*.joblib
+*.h5
+*.onnx
+
+# Miljövariabler och API-nycklar
+.env
+.env.local
+
+# IDE och editorer
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Streamlit-specifika konfigurationer (valfritt)
+.streamlit/secrets.toml
