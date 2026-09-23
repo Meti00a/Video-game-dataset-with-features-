@@ -14,6 +14,8 @@ def load_data():
 
 df = load_data()
 
+st.title("Video Game Dataset with features")
+
 # --- 2. AI-MODELLERING: Ladda tränad modell och gör förutsägelse ---
 
 st.header("AI Predictor: Förutsäg försäljning baserat på Critic Score")
@@ -54,66 +56,62 @@ search =st.text_input("Enter game title")
 if search:
   result = df[df["title"].str.contains(search, case=False, na=False)]
   st.dataframe(result)
-  
-  st.header("Filter by Critic Score")
-  
-  score =st.slider("Minimum critic score", 0.0, 10.0, 7.0)
 
-  filtered_games = df[df["critic_score"] >= score]
+st.header("Filter by Critic Score")
+score =st.slider("Minimum critic score", 0.0, 10.0, 7.0)
+filtered_games = df[df["critic_score"] >= score]
+st.dataframe(filtered_games)
   
-  st.dataframe(filtered_games)
+st.header("Sales by Genre")
+genre_sales = df.groupby("genre") ["total_sales"].sum()
   
-  st.header("Sales by Genre")
+plt.figure(figsize=(10, 5))
+plt.bar(genre_sales.index, genre_sales.values)
+plt.xticks(rotation=45, ha="right")
+plt.xlabel("Genre")
+plt.ylabel("Total Sales")
+plt.title("Total Sales by Genre")
   
-  genre_sales = df.groupby("genre") ["total_sales"].sum()
+st.pyplot(plt)
   
-  plt.figure(figsize=(10, 5))
-  plt.bar(genre_sales.index, genre_sales.values)
-  plt.xticks(rotation=45, ha="right")
-  plt.xlabel("Genre")
-  plt.ylabel("Total Sales")
-  plt.title("Total Sales by Genre")
+st.header("Sales by Console")
   
-  st.pyplot(plt)
+console_sales = df.groupby("console")["total_sales"].sum().sort_values(ascending=False).head(10)
   
-  st.header("Sales by Console")
+plt.figure(figsize=(10, 5))
+plt.bar(console_sales.index, console_sales.values)
+plt.xticks(rotation=45, ha="right")
+plt.xlabel("Console")
+plt.ylabel("Total Sales")
+plt.title("Total Sales by Console")
   
-  console_sales = df.groupby("console")["total_sales"].sum().sort_values(ascending=False).head(10)
+st.pyplot(plt)
   
-  plt.figure(figsize=(10, 5))
-  plt.bar(console_sales.index, console_sales.values)
-  plt.xticks(rotation=45, ha="right")
-  plt.xlabel("Console")
-  plt.ylabel("Total Sales")
-  plt.title("Total Sales by Console")
-  
-  st.pyplot(plt)
-  
-  st.header("Sales by Region")
-  region_sales = {
+st.header("Sales by Region")
+region_sales = {
     "North America": df["na_sales"].sum(),
     "Japan": df["jp_sales"].sum(),
     "Europe": df["pal_sales"].sum(),
     "Other": df["other_sales"].sum()
   }
 
-  plt.figure(figsize=(10, 5))
-  plt.bar(region_sales.keys(), region_sales.values())
-  plt.xlabel("Region")
-  plt.ylabel("Total Sales")
-  plt.title("Total Sales by Region")
+plt.figure(figsize=(10, 5))
+plt.bar(region_sales.keys(), region_sales.values())
+plt.xlabel("Region")
+plt.ylabel("Total Sales")
+plt.title("Total Sales by Region")
   
-  st.pyplot(plt)
+st.pyplot(plt)
   
-  st.header("games by release year")
-  df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
+st.header("games by release year")
+df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
   
-  release_year =df["release_date"].dt.year.value_counts().sort_index()
+release_year =df["release_date"].dt.year.value_counts().sort_index()
   
-  plt.figure(figsize=(10, 5))
-  plt.plot(release_year.index, release_year.values)
-  plt.xlabel("release year")
-  plt.ylabel("Number of games")
-  plt.title("games released by year")
+plt.figure(figsize=(10, 5))
+plt.plot(release_year.index, release_year.values)
+plt.xlabel("release year")
+plt.ylabel("Number of games")
+plt.title("games released by year")
   
-  st.pyplot(plt)
+st.pyplot(plt)
