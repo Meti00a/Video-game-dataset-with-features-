@@ -5,6 +5,7 @@ from sklearn.linear_model import LinearRegression
 from sqlalchemy import create_engine
 import joblib
 
+# --- 1. BACKEND: Hämta data från databasen ---
 engine = create_engine("sqlite:///games.db")
 
 @st.cache_data
@@ -12,6 +13,24 @@ def load_data():
     return pd.read_sql("SELECT * FROM games", engine)
 
 df = load_data()
+
+# --- 2. AI-MODELLERING: Ladda tränad modell och gör förutsägelse ---
+
+st.header("AI Predictor: Förutsäg försäljning baserat på Critic Score")
+try:
+    model = joblib.load("sales_model.pkl")
+    
+    input_score = st.number_input("Ange förväntat Critic Score (0.0 - 10.0)", min_value=0.0, max_value=10.0, value=8.0, step=0.1)
+    if st.button("Förutsäg försäljning"):
+        predicted_sales = model.predict([[input_score]])[0]
+        st.success(f"Förväntad totalförsäljning: **{max(0, predicted_sales):.2f} miljoner enheter**")
+except Exception as e:
+    st.warning("Hittade ingen sparad AI-modell. Kör `train_model.py` först för att generera den!")
+
+st.markdown("---")
+
+# --- 3. FRONTEND & VISUALISERING ---
+
 st.write(df)
 st.write("Video Game Dataset")
 
