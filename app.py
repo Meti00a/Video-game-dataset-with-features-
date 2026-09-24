@@ -12,6 +12,7 @@ engine = create_engine("sqlite:///games.db")
 def load_data():
     return pd.read_sql("SELECT * FROM games", engine)
 
+# laddar upp datan från csv filen
 df = load_data()
 
 st.title("Video Game Dataset with features")
@@ -33,8 +34,11 @@ st.markdown("---")
 
 # --- 3. FRONTEND & VISUALISERING ---
 
-st.write(df)
 st.write("Video Game Dataset")
+st.dataframe(df.drop(columns=["img"]))
+st.set_page_config (
+  layout= "centered"
+)
 
 st.header("Top Selling Games")
 top_games = df.sort_values("total_sales", ascending=False).head(10)
@@ -61,7 +65,6 @@ st.header("Filter by Critic Score")
 score =st.slider("Minimum critic score", 0.0, 10.0, 7.0)
 filtered_games = df[df["critic_score"] >= score]
 st.dataframe(filtered_games)
-  
 st.header("Sales by Genre")
 genre_sales = df.groupby("genre") ["total_sales"].sum()
   
@@ -104,8 +107,11 @@ plt.title("Total Sales by Region")
 st.pyplot(plt)
   
 st.header("games by release year")
-df["release_date"] = pd.to_datetime(df["release_date"], errors="coerce")
-  
+df["release_date"] = pd.to_datetime(
+df["release_date"],
+dayfirst=True,
+errors="coerce"
+)
 release_year =df["release_date"].dt.year.value_counts().sort_index()
   
 plt.figure(figsize=(10, 5))
