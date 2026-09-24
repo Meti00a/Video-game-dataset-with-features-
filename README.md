@@ -36,9 +36,15 @@ pip install -r requirements.txt
 ```
 
 ### sätt upp databasen och träna modellen
+**Windows (PowerShell):**
 ```
 python run setup_db.py
 python run train_model.py
+```
+**macOS / Linux:**
+```
+python3 run setup_db.py
+python3 run train_model.py
 ```
 
 ### Starta applikationen
