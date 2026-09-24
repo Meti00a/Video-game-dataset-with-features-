@@ -44,7 +44,7 @@ df["release_date"] = pd.to_datetime(
 
 st.title("🎮 Video Game Dashboard")
 st.caption("Explore video game sales, ratings and statistics")
-
+st.image("gaming.jpg", use_container_width=True)
 
 # ============================================================
 # OVERVIEW METRICS
@@ -309,11 +309,13 @@ with tab4:
 
     st.header("📈 Game Statistics")
 
+    col1, col2 = st.columns(2)
     # ========================================================
     # SALES BY GENRE
     # ========================================================
-
-    st.subheader("Sales by Genre")
+    with col1:
+        st.subheader("Sales by Genre")
+    col1, col2 =st.columns(2)
 
     genre_sales = (
         df.groupby("genre")["total_sales"]
@@ -345,8 +347,8 @@ with tab4:
     # ========================================================
     # SALES BY CONSOLE
     # ========================================================
-
-    st.subheader("Sales by Console")
+    with col2:
+        st.subheader("Sales by Console")
 
     console_sales = (
         df.groupby("console")["total_sales"]
@@ -379,8 +381,8 @@ with tab4:
     # ========================================================
     # SALES BY REGION
     # ========================================================
-
-    st.subheader("Sales by Region")
+    with col3:
+        st.subheader("Sales by Region")
 
     region_sales = {
         "North America": df["na_sales"].sum(),
@@ -408,8 +410,8 @@ with tab4:
     # ========================================================
     # RELEASE YEAR
     # ========================================================
-
-    st.subheader("Games Released by Year")
+    with col4:
+        st.subheader("Games Released by Year")
 
     release_year = (
         df["release_date"]
