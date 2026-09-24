@@ -5,13 +5,13 @@ Guide för att installera och starta projektet lokalt.
 
 ## Installation & Start
 
-### 1. Klona repositoryt
+### Klona repositoryt
 ```bash
 git clone https://github.com/Meti00a/Video-game-dataset-with-features-.git
 cd Video-game-dataset-with-features-
 ```
 
-### 2. Skapa och aktivera virtuell miljö (`.venv`)
+### Skapa och aktivera virtuell miljö (`.venv`)
 
 **Windows (PowerShell):**
 ```powershell
@@ -30,12 +30,18 @@ source .venv/bin/activate
 
 *(När miljön är aktiverad ska `(.venv)` synas längst till vänster i terminalen).*
 
-### 3. Installera beroenden
+### Installera beroenden
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Starta applikationen
+### sätt upp databasen och träna modellen
+```
+python run setup_db.py
+python run train_model.py
+```
+
+### Starta applikationen
 ```bash
 streamlit run app.py
 ```
